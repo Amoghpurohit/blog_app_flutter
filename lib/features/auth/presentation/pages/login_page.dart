@@ -1,3 +1,4 @@
+import 'package:blog_app/core/common/cubits/cubit/app_user_cubit.dart';
 import 'package:blog_app/core/common/widgets/loader.dart';
 import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:blog_app/core/utils/show_snackbar.dart';
@@ -41,9 +42,15 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthFailure) {
-              showSnackBar(context, state.message);
-            }else if(state is AuthSuccess){
-              Navigator.pushAndRemoveUntil(context, BlogPage.route(), (route) => false);
+              final appUserState = context.read<AppUserCubit>().state;
+              if (appUserState is AppUserInitial) {
+                //do nothing
+              } else {
+                showSnackBar(context, state.message);
+              }
+            } else if (state is AuthSuccess) {
+              Navigator.pushAndRemoveUntil(
+                  context, BlogPage.route(), (route) => false);
             }
           },
           builder: (context, state) {

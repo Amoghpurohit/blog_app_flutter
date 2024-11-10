@@ -1,5 +1,6 @@
 // here we are going to create user and get user id from supabase(remote data source)
 
+import 'package:blog_app/core/constants/db_constants.dart';
 import 'package:blog_app/core/error/server_exceptions.dart';
 import 'package:blog_app/features/auth/data/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -35,7 +36,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     if(supabaseClient.auth.currentUser == null){
       throw ServerException(message: 'Not a verified user');
     }
-    final dbResp = await supabaseClient.from('profiles').select().eq('id', supabaseClient.auth.currentUser!.id);
+    final dbResp = await supabaseClient.from(DbTableConstants.tableNameProfiles).select().eq('id', supabaseClient.auth.currentUser!.id);
     
     return UserModel.fromMap(dbResp.first);
   }

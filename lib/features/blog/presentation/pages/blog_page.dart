@@ -38,7 +38,7 @@ class _BlogPageState extends State<BlogPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                AddNewBlogPage.route(),
+                AddNewBlogPage.route2(),
               );
             },
             icon: const Icon(Icons.add_rounded),

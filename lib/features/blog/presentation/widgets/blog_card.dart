@@ -1,6 +1,7 @@
 import 'package:blog_app/core/device/device_dimensions.dart';
 import 'package:blog_app/core/utils/calculate_reading_time.dart';
 import 'package:blog_app/features/blog/domain/entities/blog.dart';
+import 'package:blog_app/features/blog/presentation/pages/add_new_blog_page.dart';
 import 'package:flutter/material.dart';
 
 class BlogCard extends StatelessWidget {
@@ -12,7 +13,7 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: DeviceResolution.getDeviceHeight(context) * 0.24,
+      height: DeviceResolution.getDeviceHeight(context) * 0.25,
       margin: const EdgeInsets.all(16).copyWith(bottom: 8),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -46,10 +47,23 @@ class BlogCard extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
           ),
           const Spacer(),
-          Text(
-            '${calculateReadingTime(blog.content)} min',
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${calculateReadingTime(blog.content)} min',
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, AddNewBlogPage.route(blog),);
+                  print(blog.id);
+                },
+                icon: const Icon(Icons.edit),
+              ),
+            ],
+          )
         ],
       ),
     );
