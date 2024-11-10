@@ -20,3 +20,5 @@ final class BlogFetchSuccess extends BlogState{
 
   BlogFetchSuccess({required this.blogs});
 }
+
+final class BlogUpdateSuccess extends BlogState{}

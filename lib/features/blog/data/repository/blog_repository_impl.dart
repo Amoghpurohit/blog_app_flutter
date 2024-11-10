@@ -75,4 +75,24 @@ class BlogRepositoryImpl implements BlogRepository {
       );
     }
   }
+  
+  @override
+  Future<Either<Failure, void>> updateBlog({
+    required String id,
+    required String title,
+    required String content,
+    required String bloggerId,
+    required String imageUrl,
+    required DateTime updatedAt,
+    required List<String> topics,
+  }) async {
+    try{
+      BlogModel blog = 
+      BlogModel(id: id, title: title, content: content, bloggerId: bloggerId, imageUrl: imageUrl, topics: topics, updatedAt: updatedAt);
+      await blogRemoteDataSource.updateBlog(blog);
+      return right(null);
+    } on ServerException catch(e){
+      return left(Failure(e.message),);
+    }
+  }
 }

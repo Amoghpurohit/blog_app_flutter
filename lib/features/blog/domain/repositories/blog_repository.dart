@@ -17,5 +17,13 @@ abstract interface class BlogRepository{
 
   Future<Either<Failure, List<Blog>>> fetchAllBlogs();
 
-  
+  Future<Either<Failure, void>> updateBlog({
+    required String id,
+    required String title,
+    required String content,
+    required String bloggerId,
+    required String imageUrl,
+    required DateTime updatedAt,
+    required List<String> topics,
+  });
 }
